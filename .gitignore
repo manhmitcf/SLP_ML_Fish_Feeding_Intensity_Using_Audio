@@ -1,0 +1,65 @@
+# --- Android / Gradle ---
+*.iml
+.gradle/
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.idea/
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+*.apk
+*.ap_
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+venv/
+env/
+ENV/
+.env
+.venv/
+
+# --- Project Data (Large Files) ---
+# Ignore source datasets
+dataset_*/
+dataset_27k/
+dataset_3k/
+
+# Ignore generated split data
+datasplit/
+datasplit_*/
+
+# Ignore audio files (optional, keep if you want to track small samples)
+*.wav
+
+# --- OS Specific ---
+Thumbs.db
+Desktop.ini
