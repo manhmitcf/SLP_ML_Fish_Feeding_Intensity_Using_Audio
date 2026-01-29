@@ -104,7 +104,7 @@ class FFTSConfig(BaseFeatureConfig):
     frame_stride: float = 0.01
     n_fft: int = 512
     window_type: str = 'hamming'
-    norm: Optional[Literal["ortho", "forward", "backward"]] = None # Added norm
+    norm: Optional[Literal["ortho", "forward", "backward"]] = None
     apply_log: bool = True
 
 @dataclass
@@ -115,7 +115,7 @@ class STFTSConfig(BaseFeatureConfig):
     frame_stride: float = 0.01
     n_fft: int = 2048
     window_type: str = 'hamming'
-    norm: Optional[Literal["ortho", "forward", "backward"]] = None # Added norm
+    norm: Optional[Literal["ortho", "forward", "backward"]] = None
     apply_log: bool = True
 
 @dataclass
@@ -138,3 +138,56 @@ class MFCCsConfig(BaseFeatureConfig):
     fmin: float = 0.0
     fmax: Optional[float] = None
     htk: bool = False
+
+@dataclass
+class EnergyConfig(BaseFeatureConfig):
+    name: str = "energy"
+    frame_length: int = 2048
+    hop_length: int = 512
+
+@dataclass
+class ZCRConfig(BaseFeatureConfig):
+    name: str = "zcr"
+    frame_length: int = 2048
+    hop_length: int = 512
+    center: bool = True
+
+@dataclass
+class WaveletConfig(BaseFeatureConfig):
+    name: str = "wavelet"
+    wavelet: str = 'db1' # Daubechies 1
+    level: Optional[int] = None # None = max level
+    mode: str = 'symmetric'
+
+@dataclass
+class LPCConfig(BaseFeatureConfig):
+    name: str = "lpc"
+    order: int = 13 # LPC order
+
+@dataclass
+class CQTConfig(BaseFeatureConfig):
+    name: str = "cqt"
+    hop_length: int = 512
+    fmin: Optional[float] = None
+    n_bins: int = 84
+    bins_per_octave: int = 12
+    tuning: float = 0.0
+    filter_scale: float = 1.0
+    norm: float = 1
+    sparsity: float = 0.01
+    window: str = 'hann'
+    scale: bool = True
+    pad_mode: str = 'reflect'
+
+@dataclass
+class CQTsConfig(BaseFeatureConfig):
+    name: str = "cqts"
+    pre_emph: float = 0.97
+    frame_size: float = 0.025
+    frame_stride: float = 0.01
+    hop_length: int = 512
+    fmin: Optional[float] = None
+    n_bins: int = 84
+    bins_per_octave: int = 12
+    window_type: str = 'hamming'
+    apply_log: bool = True

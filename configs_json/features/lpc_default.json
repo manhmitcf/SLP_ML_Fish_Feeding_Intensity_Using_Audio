@@ -1,0 +1,8 @@
+{
+    "active_config": {
+        "name": "lpc",
+        "sample_rate": 16000,
+        "order": 13,
+        "augmentation": { "enable": false }
+    }
+}

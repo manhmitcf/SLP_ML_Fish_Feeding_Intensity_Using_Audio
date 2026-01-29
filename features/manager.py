@@ -4,7 +4,10 @@ import numpy as np
 from pathlib import Path
 from typing import Tuple, Optional, Type, Dict, Any
 
-from .config import BaseFeatureConfig, MFCCConfig, STFTConfig, FFTConfig, FFTSConfig, STFTSConfig, MFCCsConfig
+from .config import (
+    BaseFeatureConfig, MFCCConfig, STFTConfig, FFTConfig, FFTSConfig, STFTSConfig, MFCCsConfig,
+    EnergyConfig, ZCRConfig, WaveletConfig, LPCConfig, CQTConfig, CQTsConfig
+)
 from .base import BaseFeatureExtractor
 from .mfcc import MFCCExtractor
 from .stft import STFTExtractor
@@ -12,6 +15,13 @@ from .fft import FFTExtractor
 from .ffts import FFTSExtractor
 from .stfts import STFTSExtractor
 from .mfccs import MFCCsExtractor
+from .energy import EnergyExtractor
+from .zcr import ZCRExtractor
+from .wavelet import WaveletExtractor
+from .lpc import LPCExtractor
+from .cqt import CQTExtractor
+from .cqts import CQTsExtractor
+
 from utils.dataloader import BaseDataLoader
 
 class FeatureManager:
@@ -28,12 +38,18 @@ class FeatureManager:
         FFTSConfig: FFTSExtractor,
         STFTSConfig: STFTSExtractor,
         MFCCsConfig: MFCCsExtractor,
+        EnergyConfig: EnergyExtractor,
+        ZCRConfig: ZCRExtractor,
+        WaveletConfig: WaveletExtractor,
+        LPCConfig: LPCExtractor,
+        CQTConfig: CQTExtractor,
+        CQTsConfig: CQTsExtractor,
     }
 
     def __init__(
         self, 
         config: BaseFeatureConfig, 
-        base_dir: str = "features_cache/raw" # Changed default to 'raw' subdirectory
+        base_dir: str = "features_cache/raw"
     ):
         self.config = config
         self.base_dir = Path(base_dir)
