@@ -1,0 +1,37 @@
+{
+    "_comment": "Modify 'active_config' to change settings. 'defaults_reference' shows original library defaults.",
+
+    "active_config": {
+        "name": "fft",
+        "description": "Custom FFT configuration",
+        "sample_rate": 16000,
+        "n_workers": 4,
+
+        "n_fft": 2048,
+        "axis": -1,
+        "norm": null,
+
+        "return_onesided": true,
+        "use_magnitude": true,
+        "power": 1.0,
+        "scaling": "none",
+
+        "augmentation": {
+            "enable": false,
+            "enable_noise": true,
+            "enable_time_shift": true,
+            "enable_pitch_shift": false,
+            "noise_factor": 0.005,
+            "shift_max": 0.2,
+            "pitch_steps": 2.0
+        }
+    },
+
+    "defaults_reference": {
+        "numpy_fft": {
+            "n": "input length",
+            "axis": -1,
+            "norm": "backward"
+        }
+    }
+}
