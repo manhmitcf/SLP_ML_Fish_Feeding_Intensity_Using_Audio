@@ -1,0 +1,10 @@
+{
+    "active_config": {
+        "name": "wavelet",
+        "sample_rate": 16000,
+        "wavelet": "db1",
+        "level": null,
+        "mode": "symmetric",
+        "augmentation": { "enable": false }
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "active_config": {
+        "name": "cqt",
+        "sample_rate": 16000,
+        "hop_length": 512,
+        "n_bins": 84,
+        "bins_per_octave": 12,
+        "augmentation": { "enable": false }
+    }
+}

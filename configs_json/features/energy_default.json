@@ -1,0 +1,9 @@
+{
+    "active_config": {
+        "name": "energy",
+        "sample_rate": 16000,
+        "frame_length": 2048,
+        "hop_length": 512,
+        "augmentation": { "enable": false }
+    }
+}
