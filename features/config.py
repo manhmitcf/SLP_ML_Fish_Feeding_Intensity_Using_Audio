@@ -52,8 +52,18 @@ class BaseFeatureConfig:
 
     @classmethod
     def from_json(cls: Type[T], json_path: str) -> T:
+        """
+        Creates a config instance from a JSON file.
+        Supports new structure with 'active_config' key or legacy flat structure.
+        """
         with open(json_path, 'r') as f:
             data = json.load(f)
+            
+        # Check for new structure
+        if 'active_config' in data:
+            print(f"Loading configuration from 'active_config' section in {json_path}")
+            data = data['active_config']
+            
         return cls.from_dict(data)
 
 
