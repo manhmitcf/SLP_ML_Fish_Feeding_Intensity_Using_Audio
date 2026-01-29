@@ -18,7 +18,6 @@ class BaseFeatureConfig:
     description: str = ""
     n_workers: int = 4
     
-    # Augmentation Configuration
     augmentation: AugmentationConfig = field(default_factory=AugmentationConfig)
 
     def to_dict(self) -> dict:
@@ -36,18 +35,12 @@ class BaseFeatureConfig:
 
     @classmethod
     def from_dict(cls: Type[T], data: dict) -> T:
-        # Handle nested AugmentationConfig manually
         aug_data = data.pop('augmentation', None)
-        
-        # FIX: Use get_type_hints to retrieve annotations from parent classes as well
         valid_keys = get_type_hints(cls).keys()
         filtered_data = {k: v for k, v in data.items() if k in valid_keys}
-        
         instance = cls(**filtered_data)
-        
         if aug_data:
             instance.augmentation = AugmentationConfig(**aug_data)
-            
         return instance
 
     @classmethod
@@ -66,21 +59,16 @@ class BaseFeatureConfig:
             
         return cls.from_dict(data)
 
-
 @dataclass
 class MFCCConfig(BaseFeatureConfig):
     """
     Comprehensive configuration for MFCC extraction.
     """
     name: str = "mfcc"
-
-    # MFCC-specific parameters
     n_mfcc: int = 13
     dct_type: Literal[1, 2, 3] = 2
     norm: Optional[Literal['ortho']] = None
     lifter: int = 0
-
-    # Melspectrogram parameters
     n_fft: int = 2048
     hop_length: int = 512
     win_length: Optional[int] = None
@@ -88,8 +76,6 @@ class MFCCConfig(BaseFeatureConfig):
     center: bool = True
     pad_mode: str = 'constant'
     power: float = 2.0
-    
-    # Mel filter bank parameters
     n_mels: int = 128
     fmin: float = 0.0
     fmax: Optional[float] = None
