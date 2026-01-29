@@ -72,3 +72,6 @@ run_all_tests.py
 
 # --- features_cache ---
 features_cache/
+
+# --- mdels_cache ---
+models_cache/

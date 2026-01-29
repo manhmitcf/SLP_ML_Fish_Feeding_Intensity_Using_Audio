@@ -1,0 +1,10 @@
+{
+    "active_config": {
+        "name": "zcr",
+        "sample_rate": 16000,
+        "frame_length": 2048,
+        "hop_length": 512,
+        "center": true,
+        "augmentation": { "enable": false }
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "active_config": {
+        "name": "cqts",
+        "sample_rate": 16000,
+        "pre_emph": 0.97,
+        "frame_size": 0.025,
+        "frame_stride": 0.01,
+        "hop_length": 512,
+        "n_bins": 84,
+        "bins_per_octave": 12,
+        "window_type": "hamming",
+        "apply_log": true,
+        "augmentation": { "enable": false }
+    }
+}
