@@ -1,6 +1,7 @@
 import os
 import sys
 import pandas as pd
+import numpy as np
 from datetime import datetime
 
 # Add project root to path to import modules
@@ -8,7 +9,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.
 
 from features import FeatureManager, STFTConfig
 from processing import ProcessingManager, PipelineConfig, ScalerConfig
-from models import ModelManager, KNNConfig, SVMConfig
+from models import ModelManager, KNNConfig, SVMConfig, RFConfig, ETConfig
 from utils import StandardDataLoader
 
 def run_experiment():
@@ -43,7 +44,9 @@ def run_experiment():
     # 4. Define Models
     models_config = [
         (KNNConfig, {"name": "knn", "n_neighbors": 3, "n_jobs": 6}),
-        (SVMConfig, {"name": "svm", "C": 10, "kernel": "rbf", "gamma": "scale", "probability": True, "random_state": 42})
+        (SVMConfig, {"name": "svm", "C": 10, "kernel": "rbf", "gamma": "scale", "probability": True, "random_state": 42}),
+        (RFConfig, {"name": "rf", "n_estimators": 100, "n_jobs": 6, "random_state": 42}),
+        (ETConfig, {"name": "et", "n_estimators": 200, "max_depth": 30, "n_jobs": 6, "random_state": 42})
     ]
 
     # Prepare CSV results
@@ -62,6 +65,9 @@ def run_experiment():
         y_train = processed['y_train']
         X_test = processed['X_test']
         y_test = processed['y_test']
+        
+        # DEBUG: Print data statistics to verify scaling
+        print(f"   [DEBUG] Data Stats - Mean: {np.mean(X_train):.4f}, Std: {np.std(X_train):.4f}, Min: {np.min(X_train):.4f}, Max: {np.max(X_train):.4f}")
         
         pipeline_hash = processed['pipeline_hash']
         processing_config_path = f"features_cache/processed/{pipeline_hash}_config.json"

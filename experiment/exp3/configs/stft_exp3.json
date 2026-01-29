@@ -1,0 +1,1 @@
+{ "active_config": { "name": "stft", "sample_rate": 128000, "n_fft": 2048, "hop_length": 512, "scaling": "log", "pooling": "mean", "augmentation": { "enable": false } } }

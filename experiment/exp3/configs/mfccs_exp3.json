@@ -1,0 +1,1 @@
+{ "active_config": { "name": "mfccs", "sample_rate": 128000, "pre_emph": 0.97, "n_mfcc": 13, "n_fft": 2048, "hop_length": 1024, "apply_log": true, "augmentation": { "enable": false } } }

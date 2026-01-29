@@ -1,0 +1,1 @@
+{ "active_config": { "name": "ffts", "sample_rate": 128000, "pre_emph": 0.97, "frame_size": 0.025, "frame_stride": 0.01, "n_fft": 512, "apply_log": true, "augmentation": { "enable": false } } }

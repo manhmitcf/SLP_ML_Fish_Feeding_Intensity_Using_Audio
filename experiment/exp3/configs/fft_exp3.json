@@ -1,0 +1,1 @@
+{ "active_config": { "name": "fft", "sample_rate": 128000, "n_fft": 2048, "augmentation": { "enable": false } } }
