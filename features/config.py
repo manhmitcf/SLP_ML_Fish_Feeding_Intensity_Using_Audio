@@ -94,3 +94,33 @@ class MFCCConfig(BaseFeatureConfig):
     fmin: float = 0.0
     fmax: Optional[float] = None
     htk: bool = False
+
+@dataclass
+class STFTConfig(BaseFeatureConfig):
+    """
+    Configuration for Short-Time Fourier Transform (STFT) extraction.
+    """
+    name: str = "stft"
+    n_fft: int = 2048
+    hop_length: int = 512
+    win_length: Optional[int] = None
+    window: str = 'hann'
+    center: bool = True
+    pad_mode: str = 'constant'
+    dtype: Optional[str] = None 
+    scaling: Literal['none', 'log', 'db'] = 'log'
+    pooling: Literal['mean', 'max', 'mean_std'] = 'mean'
+
+@dataclass
+class FFTConfig(BaseFeatureConfig):
+    """
+    Configuration for Fast Fourier Transform (FFT).
+    """
+    name: str = "fft"
+    n_fft: int = 2048
+    axis: int = -1
+    norm: Optional[Literal["ortho", "forward", "backward"]] = None
+    return_onesided: bool = True
+    use_magnitude: bool = True
+    power: float = 1.0
+    scaling: Literal['none', 'log', 'db'] = 'none'
