@@ -1,0 +1,38 @@
+{
+    "_comment": "Modify 'active_config' to change settings.",
+
+    "active_config": {
+        "name": "stfts",
+        "description": "Custom STFTS configuration (Manual STFT using rfft)",
+        "sample_rate": 16000,
+        "n_workers": 4,
+
+        "pre_emph": 0.97,
+        "frame_size": 0.025,
+        "frame_stride": 0.01,
+        "n_fft": 2048,
+        "window_type": "hamming",
+        "apply_log": true,
+
+        "augmentation": {
+            "enable": false,
+            "enable_noise": true,
+            "enable_time_shift": true,
+            "enable_pitch_shift": false,
+            "noise_factor": 0.005,
+            "shift_max": 0.2,
+            "pitch_steps": 2.0
+        }
+    },
+
+    "defaults_reference": {
+        "stfts_params": {
+            "pre_emph": 0.97,
+            "frame_size": 0.025,
+            "frame_stride": 0.01,
+            "n_fft": 2048,
+            "window_type": "hamming",
+            "apply_log": true
+        }
+    }
+}

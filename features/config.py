@@ -98,13 +98,23 @@ class FFTConfig(BaseFeatureConfig):
 
 @dataclass
 class FFTSConfig(BaseFeatureConfig):
-    """
-    Configuration for FFTS (FFT with Pre-emphasis, Framing, Windowing).
-    """
     name: str = "ffts"
     pre_emph: float = 0.97
     frame_size: float = 0.025
     frame_stride: float = 0.01
     n_fft: int = 512
-    window_type: str = 'hamming' # 'hamming', 'hann', 'blackman', etc.
+    window_type: str = 'hamming'
+    apply_log: bool = True
+
+@dataclass
+class STFTSConfig(BaseFeatureConfig):
+    """
+    Configuration for STFTS (Manual STFT implementation using rfft).
+    """
+    name: str = "stfts"
+    pre_emph: float = 0.97
+    frame_size: float = 0.025
+    frame_stride: float = 0.01
+    n_fft: int = 2048
+    window_type: str = 'hamming'
     apply_log: bool = True
