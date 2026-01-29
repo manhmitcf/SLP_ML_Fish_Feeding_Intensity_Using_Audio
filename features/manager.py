@@ -4,11 +4,12 @@ import numpy as np
 from pathlib import Path
 from typing import Tuple, Optional, Type, Dict
 
-from .config import BaseFeatureConfig, MFCCConfig, STFTConfig, FFTConfig
+from .config import BaseFeatureConfig, MFCCConfig, STFTConfig, FFTConfig, FFTSConfig
 from .base import BaseFeatureExtractor
 from .mfcc import MFCCExtractor
 from .stft import STFTExtractor
 from .fft import FFTExtractor
+from .ffts import FFTSExtractor
 from utils.dataloader import BaseDataLoader
 
 class FeatureManager:
@@ -22,6 +23,7 @@ class FeatureManager:
         MFCCConfig: MFCCExtractor,
         STFTConfig: STFTExtractor,
         FFTConfig: FFTExtractor,
+        FFTSConfig: FFTSExtractor,
     }
 
     def __init__(
@@ -38,7 +40,6 @@ class FeatureManager:
     def register_extractor(cls, config_cls: Type[BaseFeatureConfig], extractor_cls: Type[BaseFeatureExtractor]):
         """
         Registers a new extractor dynamically.
-        Use this to add custom extractors without modifying the Manager code.
         """
         cls._EXTRACTOR_REGISTRY[config_cls] = extractor_cls
 
@@ -46,13 +47,10 @@ class FeatureManager:
         """
         Factory method to get the correct extractor class using the registry.
         """
-        # 1. Try exact match first
         config_type = type(config)
         if config_type in self._EXTRACTOR_REGISTRY:
             return self._EXTRACTOR_REGISTRY[config_type]
             
-        # 2. If no exact match, try finding a registered parent class (fallback)
-        # This handles inheritance (e.g., if FFTConfig wasn't explicitly registered but STFTConfig was)
         for registered_conf, extractor_cls in self._EXTRACTOR_REGISTRY.items():
             if isinstance(config, registered_conf):
                 return extractor_cls

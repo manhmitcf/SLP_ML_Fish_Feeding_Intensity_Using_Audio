@@ -68,7 +68,7 @@ Desktop.ini
 docs/
 
 # --- TEST ---
-TEST.py
+run_all_tests.py
 
 # --- features_cache ---
 features_cache/

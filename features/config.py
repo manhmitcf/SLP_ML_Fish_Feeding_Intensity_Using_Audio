@@ -45,25 +45,16 @@ class BaseFeatureConfig:
 
     @classmethod
     def from_json(cls: Type[T], json_path: str) -> T:
-        """
-        Creates a config instance from a JSON file.
-        Supports new structure with 'active_config' key or legacy flat structure.
-        """
         with open(json_path, 'r') as f:
             data = json.load(f)
             
-        # Check for new structure
         if 'active_config' in data:
-            print(f"Loading configuration from 'active_config' section in {json_path}")
             data = data['active_config']
             
         return cls.from_dict(data)
 
 @dataclass
 class MFCCConfig(BaseFeatureConfig):
-    """
-    Comprehensive configuration for MFCC extraction.
-    """
     name: str = "mfcc"
     n_mfcc: int = 13
     dct_type: Literal[1, 2, 3] = 2
@@ -83,9 +74,6 @@ class MFCCConfig(BaseFeatureConfig):
 
 @dataclass
 class STFTConfig(BaseFeatureConfig):
-    """
-    Configuration for Short-Time Fourier Transform (STFT) extraction.
-    """
     name: str = "stft"
     n_fft: int = 2048
     hop_length: int = 512
@@ -99,9 +87,6 @@ class STFTConfig(BaseFeatureConfig):
 
 @dataclass
 class FFTConfig(BaseFeatureConfig):
-    """
-    Configuration for Fast Fourier Transform (FFT).
-    """
     name: str = "fft"
     n_fft: int = 2048
     axis: int = -1
@@ -110,3 +95,16 @@ class FFTConfig(BaseFeatureConfig):
     use_magnitude: bool = True
     power: float = 1.0
     scaling: Literal['none', 'log', 'db'] = 'none'
+
+@dataclass
+class FFTSConfig(BaseFeatureConfig):
+    """
+    Configuration for FFTS (FFT with Pre-emphasis, Framing, Windowing).
+    """
+    name: str = "ffts"
+    pre_emph: float = 0.97
+    frame_size: float = 0.025
+    frame_stride: float = 0.01
+    n_fft: int = 512
+    window_type: str = 'hamming' # 'hamming', 'hann', 'blackman', etc.
+    apply_log: bool = True
