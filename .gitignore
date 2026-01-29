@@ -63,3 +63,12 @@ datasplit_*/
 # --- OS Specific ---
 Thumbs.db
 Desktop.ini
+
+# --- DOCS ---
+docs/
+
+# --- TEST ---
+TEST.py
+
+# --- features_cache ---
+features_cache/
