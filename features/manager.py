@@ -4,13 +4,14 @@ import numpy as np
 from pathlib import Path
 from typing import Tuple, Optional, Type, Dict
 
-from .config import BaseFeatureConfig, MFCCConfig, STFTConfig, FFTConfig, FFTSConfig, STFTSConfig
+from .config import BaseFeatureConfig, MFCCConfig, STFTConfig, FFTConfig, FFTSConfig, STFTSConfig, MFCCsConfig
 from .base import BaseFeatureExtractor
 from .mfcc import MFCCExtractor
 from .stft import STFTExtractor
 from .fft import FFTExtractor
 from .ffts import FFTSExtractor
 from .stfts import STFTSExtractor
+from .mfccs import MFCCsExtractor
 from utils.dataloader import BaseDataLoader
 
 class FeatureManager:
@@ -26,6 +27,7 @@ class FeatureManager:
         FFTConfig: FFTExtractor,
         FFTSConfig: FFTSExtractor,
         STFTSConfig: STFTSExtractor,
+        MFCCsConfig: MFCCsExtractor,
     }
 
     def __init__(

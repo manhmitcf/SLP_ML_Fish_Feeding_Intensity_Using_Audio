@@ -118,3 +118,24 @@ class STFTSConfig(BaseFeatureConfig):
     n_fft: int = 2048
     window_type: str = 'hamming'
     apply_log: bool = True
+
+@dataclass
+class MFCCsConfig(BaseFeatureConfig):
+    name: str = "mfccs"
+    pre_emph: float = 0.97
+    apply_log: bool = True
+    n_mfcc: int = 13
+    dct_type: Literal[1, 2, 3] = 2
+    norm: Optional[Literal['ortho']] = None
+    lifter: int = 0
+    n_fft: int = 2048
+    hop_length: int = 1024
+    win_length: Optional[int] = None
+    window: str = 'hann'
+    center: bool = True
+    pad_mode: str = 'constant'
+    power: float = 2.0
+    n_mels: int = 128
+    fmin: float = 0.0
+    fmax: Optional[float] = None
+    htk: bool = False

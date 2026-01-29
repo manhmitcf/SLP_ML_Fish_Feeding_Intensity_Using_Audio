@@ -1,0 +1,51 @@
+{
+    "_comment": "Modify 'active_config' to change settings.",
+
+    "active_config": {
+        "name": "mfccs",
+        "description": "Custom MFCCs configuration (Pre-emphasis -> MFCC -> Log)",
+        "sample_rate": 16000,
+        "n_workers": 4,
+
+        "pre_emph": 0.97,
+        "apply_log": true,
+
+        "n_mfcc": 13,
+        "dct_type": 2,
+        "norm": "ortho",
+        "lifter": 0,
+
+        "n_fft": 2048,
+        "hop_length": 1024,
+        "win_length": null,
+        "window": "hann",
+        "center": true,
+        "pad_mode": "constant",
+        "power": 2.0,
+
+        "n_mels": 128,
+        "fmin": 0.0,
+        "fmax": null,
+        "htk": false,
+
+        "augmentation": {
+            "enable": false,
+            "enable_noise": true,
+            "enable_time_shift": true,
+            "enable_pitch_shift": false,
+            "noise_factor": 0.005,
+            "shift_max": 0.2,
+            "pitch_steps": 2.0
+        }
+    },
+
+    "defaults_reference": {
+        "mfccs_params": {
+            "pre_emph": 0.97,
+            "n_mfcc": 13,
+            "n_mels": 128,
+            "hop_length": 1024,
+            "apply_log": true
+        }
+    }
+}
