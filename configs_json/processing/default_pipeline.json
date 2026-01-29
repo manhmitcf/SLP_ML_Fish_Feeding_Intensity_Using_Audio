@@ -1,0 +1,20 @@
+{
+    "_comment": "Processing Pipeline Configuration",
+
+    "steps": ["scaler", "selection", "pca"],
+
+    "scaler": {
+        "type": "standard"
+    },
+
+    "selection": {
+        "method": "variance",
+        "threshold": 0.0,
+        "k": 10
+    },
+
+    "pca": {
+        "n_components": 0.95,
+        "whiten": false
+    }
+}

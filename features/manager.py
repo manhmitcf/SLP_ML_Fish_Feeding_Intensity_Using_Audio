@@ -2,7 +2,7 @@ import os
 import json
 import numpy as np
 from pathlib import Path
-from typing import Tuple, Optional, Type, Dict
+from typing import Tuple, Optional, Type, Dict, Any
 
 from .config import BaseFeatureConfig, MFCCConfig, STFTConfig, FFTConfig, FFTSConfig, STFTSConfig, MFCCsConfig
 from .base import BaseFeatureExtractor
@@ -33,7 +33,7 @@ class FeatureManager:
     def __init__(
         self, 
         config: BaseFeatureConfig, 
-        base_dir: str = "features_cache"
+        base_dir: str = "features_cache/raw" # Changed default to 'raw' subdirectory
     ):
         self.config = config
         self.base_dir = Path(base_dir)
@@ -89,12 +89,21 @@ class FeatureManager:
         self, 
         data_loader: BaseDataLoader, 
         force_recompute: bool = False
-    ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
-        
+    ) -> Dict[str, Any]:
+        """
+        Returns a dictionary containing data and metadata (hash and config object).
+        """
         data_path, _ = self._get_cache_paths()
+        config_hash = self.config.get_hash()
 
         if data_path.exists() and not force_recompute:
-            return self._load_from_cache()
+            X_train, y_train, X_test, y_test = self._load_from_cache()
+            return {
+                'X_train': X_train, 'y_train': y_train,
+                'X_test': X_test, 'y_test': y_test,
+                'config_hash': config_hash,
+                'config': self.config # Return config object for downstream logging
+            }
 
         print(f"--- Cache MISS (or forced). Starting extraction pipeline... ---")
         
@@ -119,4 +128,9 @@ class FeatureManager:
 
         self._save_to_cache(X_train_feat, y_train_feat, X_test_feat, y_test_feat)
 
-        return X_train_feat, y_train_feat, X_test_feat, y_test_feat
+        return {
+            'X_train': X_train_feat, 'y_train': y_train_feat,
+            'X_test': X_test_feat, 'y_test': y_test_feat,
+            'config_hash': config_hash,
+            'config': self.config
+        }
