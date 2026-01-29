@@ -1,0 +1,11 @@
+{
+    "_comment": "Logistic Regression Configuration",
+    "active_config": {
+        "name": "lr",
+        "C": 1.0,
+        "solver": "lbfgs",
+        "max_iter": 100,
+        "n_jobs": -1,
+        "random_state": 42
+    }
+}

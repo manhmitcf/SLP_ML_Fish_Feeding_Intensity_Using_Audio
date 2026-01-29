@@ -1,0 +1,10 @@
+{
+    "_comment": "SVM Configuration",
+    "active_config": {
+        "name": "svm",
+        "C": 1.0,
+        "kernel": "rbf",
+        "gamma": "scale",
+        "probability": true
+    }
+}

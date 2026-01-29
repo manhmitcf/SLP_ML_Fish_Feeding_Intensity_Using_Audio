@@ -1,0 +1,11 @@
+{
+    "_comment": "KNN Configuration",
+    "active_config": {
+        "name": "knn",
+        "n_neighbors": 5,
+        "weights": "uniform",
+        "algorithm": "auto",
+        "metric": "minkowski",
+        "n_jobs": -1
+    }
+}
