@@ -14,15 +14,9 @@ class FFTSExtractor(BaseFeatureExtractor):
         self.config = config
 
     def _pre_emphasis(self, signal_in):
-        """
-        Apply pre-emphasis to emphasize high frequencies.
-        """
         return np.append(signal_in[0], signal_in[1:] - self.config.pre_emph * signal_in[:-1])
 
     def _framing(self, signal_in):
-        """
-        Split signal into frames.
-        """
         sample_rate = self.config.sample_rate
         frame_size = self.config.frame_size
         frame_stride = self.config.frame_stride
@@ -41,9 +35,6 @@ class FFTSExtractor(BaseFeatureExtractor):
         return frames
 
     def _windowing(self, frames):
-        """
-        Apply window function to each frame.
-        """
         frame_length = frames.shape[1]
         win_type = self.config.window_type
         
@@ -53,43 +44,22 @@ class FFTSExtractor(BaseFeatureExtractor):
             window = np.hanning(frame_length)
         elif win_type == 'blackman':
             window = np.blackman(frame_length)
-        elif win_type == 'bartlett':
-            window = np.bartlett(frame_length)
         else:
-            # Fallback or raise error. For now, default to hamming if unknown
-            print(f"Warning: Unknown window type '{win_type}'. Using Hamming.")
             window = np.hamming(frame_length)
             
         return frames * window
 
     def _fft_frames(self, frames):
-        """
-        Compute FFT for each frame and take magnitude.
-        """
         n_fft = self.config.n_fft
-        # Only take positive frequencies
-        return np.abs(np.fft.fft(frames, n_fft))[:, :n_fft//2+1]
+        return np.abs(np.fft.fft(frames, n=n_fft, norm=self.config.norm))[:, :n_fft//2+1]
 
     def extract(self, signal: np.ndarray) -> np.ndarray:
-        """
-        Compute FFTS features.
-        """
-        # 1. Pre-emphasis
         emphasized_signal = self._pre_emphasis(signal)
-        
-        # 2. Framing
         frames = self._framing(emphasized_signal)
-        
-        # 3. Windowing
         windowed_frames = self._windowing(frames)
-        
-        # 4. FFT
         mag_frames = self._fft_frames(windowed_frames)
-        
-        # 5. Mean across frames
         fft_feature = np.mean(mag_frames, axis=0)
         
-        # 6. Log scaling
         if self.config.apply_log:
             fft_feature = np.log(np.maximum(fft_feature, 1e-8))
             

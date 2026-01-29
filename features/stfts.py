@@ -53,23 +53,15 @@ class STFTSExtractor(BaseFeatureExtractor):
         """
         Compute STFTS features using np.fft.rfft.
         """
-        # 1. Pre-emphasis
         emphasized_signal = self._pre_emphasis(signal)
-        
-        # 2. Framing
         frames = self._framing(emphasized_signal)
-        
-        # 3. Windowing
         windowed_frames = self._windowing(frames)
         
-        # 4. FFT (using rfft for efficiency on real input)
-        # axis=1 computes FFT for all frames at once
-        mag_frames = np.abs(np.fft.rfft(windowed_frames, n=self.config.n_fft, axis=1))
+        # Use rfft for efficiency on real input, pass norm
+        mag_frames = np.abs(np.fft.rfft(windowed_frames, n=self.config.n_fft, axis=1, norm=self.config.norm))
         
-        # 5. Mean across frames
         stfts_feature = np.mean(mag_frames, axis=0)
         
-        # 6. Log scaling
         if self.config.apply_log:
             stfts_feature = np.log(stfts_feature + 1e-8)
             
